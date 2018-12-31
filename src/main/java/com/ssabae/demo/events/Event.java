@@ -3,12 +3,15 @@ package com.ssabae.demo.events;
 import lombok.*;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Builder @AllArgsConstructor @NoArgsConstructor
 @Getter @Setter @EqualsAndHashCode(of = "id")
+@Entity
 public class Event {
 
+    @Id @GeneratedValue
     private Integer id;
     private String name;
     private String description;
@@ -21,6 +24,8 @@ public class Event {
     private int maxPrice; // (optional)
     private int limitOfEnrollment;
     private boolean offline;
+    private boolean free;
+    @Enumerated(EnumType.STRING)
     private EventStatus eventStatus;
 
 }
