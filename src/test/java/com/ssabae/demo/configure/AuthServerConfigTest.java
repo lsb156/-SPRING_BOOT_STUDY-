@@ -28,14 +28,6 @@ public class AuthServerConfigTest extends BaseControllerTest {
     @Test
     @TestDescription("인증 토큰을 발급 받는 테스트")
     public void getAuthToken() throws Exception {
-
-        Account ssabae = Account.builder()
-                .email(appProperties.getUserUsername())
-                .password(appProperties.getUserPassword())
-                .roles(Set.of(AccountRole.ADMIN, AccountRole.USER))
-                .build();
-        this.accountService.saveAccount(ssabae);
-
         this.mockMvc.perform(post("/oauth/token")
                     .with(httpBasic(appProperties.getClientId(), appProperties.getClientSecret()))
                         .param("username", appProperties.getUserUsername())
