@@ -3,6 +3,7 @@ package com.ssabae.demo.configure;
 import com.ssabae.demo.accounts.Account;
 import com.ssabae.demo.accounts.AccountRole;
 import com.ssabae.demo.accounts.AccountService;
+import com.ssabae.demo.common.AppProperties;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -34,15 +35,24 @@ public class AppConfig {
             @Autowired
             AccountService accountService;
 
+            @Autowired
+            AppProperties appProperties;
+
             @Override
             public void run(ApplicationArguments args) throws Exception {
-                Account ssabae = Account.builder()
-                        .email("ssabae@test.com")
-                        .password("ssabae")
+                Account admin = Account.builder()
+                        .email(appProperties.getAdminUsername())
+                        .password(appProperties.getAdminPassword())
                         .roles(Set.of(AccountRole.ADMIN, AccountRole.USER))
                         .build();
+                accountService.saveAccount(admin);
 
-                 this.accountService.saveAccount(ssabae);
+                Account user = Account.builder()
+                        .email(appProperties.getUserUsername())
+                        .password(appProperties.getUserPassword())
+                        .roles(Set.of(AccountRole.USER))
+                        .build();
+                accountService.saveAccount(user);
             }
         };
     }
