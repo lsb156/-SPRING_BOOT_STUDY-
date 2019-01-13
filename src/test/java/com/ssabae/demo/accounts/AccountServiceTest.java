@@ -1,5 +1,6 @@
 package com.ssabae.demo.accounts;
 
+import com.ssabae.demo.common.AppProperties;
 import org.hamcrest.Matchers;
 import org.junit.Rule;
 import org.junit.Test;
@@ -34,6 +35,9 @@ public class AccountServiceTest {
     @Autowired
     PasswordEncoder passwordEncoder;
 
+    @Autowired
+    AppProperties appProperties;
+
     @Test
     public void findByUserName() {
         // Given
@@ -51,7 +55,7 @@ public class AccountServiceTest {
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
         // Then
-        assertThat(this.passwordEncoder.matches(password, account.getPassword())).isTrue();
+        assertThat(this.passwordEncoder.matches(password, userDetails.getPassword())).isTrue();
     }
 
 
