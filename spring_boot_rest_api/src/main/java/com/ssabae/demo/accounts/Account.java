@@ -1,6 +1,8 @@
 package com.ssabae.demo.accounts;
 
 import lombok.*;
+import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import javax.persistence.*;
 import java.util.Set;
